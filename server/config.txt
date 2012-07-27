@@ -1,0 +1,4 @@
+port=4568
+threads=4
+log_file=
+max_games=2

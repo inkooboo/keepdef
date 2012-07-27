@@ -1,0 +1,28 @@
+EV_START START
+Client:
+string    login    //player login
+string    password //md5 password
+Server:
+size_t    id       //game id
+string    enemy    //opposite player name
+
+
+EV_HIT HIT
+Client:
+string    from     //player name
+string    target   //target name
+string    side     //hit type
+Server:
+string    from     //player name
+string    target   //target name
+string    side     //hit type
+size_t    power    //hit power
+
+
+EV_NOTIFY NOTIFY
+Server:
+string    message  //notify message content
+
+EV_END_GAME END_GAME
+Server:
+string    winner   //name of player that won the match
