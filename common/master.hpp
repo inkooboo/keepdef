@@ -17,6 +17,7 @@ public:
     inline SubsystemType & subsystem();
 
     inline void start();
+    inline void stop();
 
     inline ~master_t();
 
@@ -39,13 +40,21 @@ inline void master_t::start()
     }
 }
 
-inline master_t::~master_t()
+inline void master_t::stop()
 {
     for (auto &subsystem : m_subsystem_holder)
     {
         subsystem->stop();
     }
     
+    for (auto &subsystem : m_subsystem_holder)
+    {
+        delete subsystem;
+    }
+}
+
+inline master_t::~master_t()
+{
     for (auto &subsystem : m_subsystem_holder)
     {
         delete subsystem;
@@ -65,7 +74,8 @@ inline void master_t::add_subsystem()
     SubsystemType **instance = subsystem_instance<SubsystemType>();
     assert(*instance == 0);
 
-    *instance = new SubsystemType(this);
+    *instance = new SubsystemType();
+    static_cast<subsystem_t *>(*instance)->master() = this;
     m_subsystem_holder.push_back(*instance);
 }
 

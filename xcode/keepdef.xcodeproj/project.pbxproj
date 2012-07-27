@@ -240,6 +240,12 @@
 		846FD4FD15C28419003BA72D /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 846FD4FC15C28419003BA72D /* RootViewController.mm */; };
 		846FD50115C28419003BA72D /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 846FD50015C28419003BA72D /* AppDelegate.cpp */; };
 		846FD50615C28419003BA72D /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 846FD50515C28419003BA72D /* blocks.png */; };
+		846FD52015C28FB2003BA72D /* cocos_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 846FD51615C28FB1003BA72D /* cocos_scene.cpp */; };
+		846FD52115C28FB2003BA72D /* event_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 846FD51815C28FB2003BA72D /* event_manager.cpp */; };
+		846FD52215C28FB2003BA72D /* game_layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 846FD51A15C28FB2003BA72D /* game_layer.cpp */; };
+		846FD52315C28FB2003BA72D /* menu_layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 846FD51C15C28FB2003BA72D /* menu_layer.cpp */; };
+		846FD52B15C28FBA003BA72D /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 846FD52715C28FBA003BA72D /* md5.cpp */; };
+		846FD53815C29C20003BA72D /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 846FD53715C29C1F003BA72D /* libcurl.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -736,6 +742,33 @@
 		846FD4FF15C28419003BA72D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		846FD50015C28419003BA72D /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
 		846FD50515C28419003BA72D /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blocks.png; path = Resources/blocks.png; sourceTree = "<group>"; };
+		846FD51615C28FB1003BA72D /* cocos_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos_scene.cpp; sourceTree = "<group>"; };
+		846FD51715C28FB2003BA72D /* cocos_scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cocos_scene.hpp; sourceTree = "<group>"; };
+		846FD51815C28FB2003BA72D /* event_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = event_manager.cpp; sourceTree = "<group>"; };
+		846FD51915C28FB2003BA72D /* event_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = event_manager.hpp; sourceTree = "<group>"; };
+		846FD51A15C28FB2003BA72D /* game_layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_layer.cpp; sourceTree = "<group>"; };
+		846FD51B15C28FB2003BA72D /* game_layer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = game_layer.hpp; sourceTree = "<group>"; };
+		846FD51C15C28FB2003BA72D /* menu_layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = menu_layer.cpp; sourceTree = "<group>"; };
+		846FD51D15C28FB2003BA72D /* menu_layer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = menu_layer.hpp; sourceTree = "<group>"; };
+		846FD51E15C28FB2003BA72D /* network.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = network.hpp; sourceTree = "<group>"; };
+		846FD51F15C28FB2003BA72D /* text_input_helper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = text_input_helper.hpp; sourceTree = "<group>"; };
+		846FD52515C28FBA003BA72D /* config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = config.hpp; sourceTree = "<group>"; };
+		846FD52615C28FBA003BA72D /* master.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = master.hpp; sourceTree = "<group>"; };
+		846FD52715C28FBA003BA72D /* md5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = md5.cpp; sourceTree = "<group>"; };
+		846FD52815C28FBA003BA72D /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
+		846FD52915C28FBA003BA72D /* noncopyable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = noncopyable.hpp; sourceTree = "<group>"; };
+		846FD52A15C28FBA003BA72D /* subsystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = subsystem.hpp; sourceTree = "<group>"; };
+		846FD52D15C293A4003BA72D /* curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curl.h; sourceTree = "<group>"; };
+		846FD52E15C293A4003BA72D /* curlbuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlbuild.h; sourceTree = "<group>"; };
+		846FD52F15C293A4003BA72D /* curlrules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlrules.h; sourceTree = "<group>"; };
+		846FD53015C293A4003BA72D /* curlver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlver.h; sourceTree = "<group>"; };
+		846FD53115C293A4003BA72D /* easy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easy.h; sourceTree = "<group>"; };
+		846FD53215C293A4003BA72D /* mprintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mprintf.h; sourceTree = "<group>"; };
+		846FD53315C293A4003BA72D /* multi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multi.h; sourceTree = "<group>"; };
+		846FD53415C293A4003BA72D /* stdcheaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdcheaders.h; sourceTree = "<group>"; };
+		846FD53515C293A4003BA72D /* typecheck-gcc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "typecheck-gcc.h"; sourceTree = "<group>"; };
+		846FD53615C293A4003BA72D /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		846FD53715C29C1F003BA72D /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../cocos2dx/cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -743,6 +776,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				846FD53815C29C20003BA72D /* libcurl.a in Frameworks */,
 				846FD1F715C28415003BA72D /* QuartzCore.framework in Frameworks */,
 				846FD1F915C28415003BA72D /* OpenGLES.framework in Frameworks */,
 				846FD1FB15C28415003BA72D /* OpenAL.framework in Frameworks */,
@@ -760,6 +794,7 @@
 		846FD1E715C28415003BA72D = {
 			isa = PBXGroup;
 			children = (
+				846FD53715C29C1F003BA72D /* libcurl.a */,
 				846FD20615C28415003BA72D /* keepdef */,
 				846FD1F515C28415003BA72D /* Frameworks */,
 				846FD1F315C28415003BA72D /* Products */,
@@ -792,6 +827,9 @@
 		846FD20615C28415003BA72D /* keepdef */ = {
 			isa = PBXGroup;
 			children = (
+				846FD52C15C293A4003BA72D /* curl */,
+				846FD52415C28FBA003BA72D /* common */,
+				846FD51515C28FB1003BA72D /* client */,
 				846FD20715C28415003BA72D /* Resources */,
 				846FD22115C28415003BA72D /* libs */,
 				846FD4F515C28419003BA72D /* ios */,
@@ -1728,6 +1766,56 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		846FD51515C28FB1003BA72D /* client */ = {
+			isa = PBXGroup;
+			children = (
+				846FD51615C28FB1003BA72D /* cocos_scene.cpp */,
+				846FD51715C28FB2003BA72D /* cocos_scene.hpp */,
+				846FD51815C28FB2003BA72D /* event_manager.cpp */,
+				846FD51915C28FB2003BA72D /* event_manager.hpp */,
+				846FD51A15C28FB2003BA72D /* game_layer.cpp */,
+				846FD51B15C28FB2003BA72D /* game_layer.hpp */,
+				846FD51C15C28FB2003BA72D /* menu_layer.cpp */,
+				846FD51D15C28FB2003BA72D /* menu_layer.hpp */,
+				846FD51E15C28FB2003BA72D /* network.hpp */,
+				846FD51F15C28FB2003BA72D /* text_input_helper.hpp */,
+			);
+			name = client;
+			path = ../../client;
+			sourceTree = "<group>";
+		};
+		846FD52415C28FBA003BA72D /* common */ = {
+			isa = PBXGroup;
+			children = (
+				846FD52515C28FBA003BA72D /* config.hpp */,
+				846FD52615C28FBA003BA72D /* master.hpp */,
+				846FD52715C28FBA003BA72D /* md5.cpp */,
+				846FD52815C28FBA003BA72D /* md5.h */,
+				846FD52915C28FBA003BA72D /* noncopyable.hpp */,
+				846FD52A15C28FBA003BA72D /* subsystem.hpp */,
+			);
+			name = common;
+			path = ../../common;
+			sourceTree = "<group>";
+		};
+		846FD52C15C293A4003BA72D /* curl */ = {
+			isa = PBXGroup;
+			children = (
+				846FD52D15C293A4003BA72D /* curl.h */,
+				846FD52E15C293A4003BA72D /* curlbuild.h */,
+				846FD52F15C293A4003BA72D /* curlrules.h */,
+				846FD53015C293A4003BA72D /* curlver.h */,
+				846FD53115C293A4003BA72D /* easy.h */,
+				846FD53215C293A4003BA72D /* mprintf.h */,
+				846FD53315C293A4003BA72D /* multi.h */,
+				846FD53415C293A4003BA72D /* stdcheaders.h */,
+				846FD53515C293A4003BA72D /* typecheck-gcc.h */,
+				846FD53615C293A4003BA72D /* types.h */,
+			);
+			name = curl;
+			path = ../../cocos2dx/cocos2dx/platform/third_party/ios/curl;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2013,6 +2101,11 @@
 				846FD4FA15C28419003BA72D /* AppController.mm in Sources */,
 				846FD4FD15C28419003BA72D /* RootViewController.mm in Sources */,
 				846FD50115C28419003BA72D /* AppDelegate.cpp in Sources */,
+				846FD52015C28FB2003BA72D /* cocos_scene.cpp in Sources */,
+				846FD52115C28FB2003BA72D /* event_manager.cpp in Sources */,
+				846FD52215C28FB2003BA72D /* game_layer.cpp in Sources */,
+				846FD52315C28FB2003BA72D /* menu_layer.cpp in Sources */,
+				846FD52B15C28FBA003BA72D /* md5.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2075,12 +2168,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = keepdef/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = keepdef/Resources/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../cocos2dx/cocos2dx/platform/third_party/ios/libraries\"",
+				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-lz",
@@ -2095,11 +2194,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = keepdef/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = keepdef/Resources/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../cocos2dx/cocos2dx/platform/third_party/ios/libraries\"",
+				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-lz",

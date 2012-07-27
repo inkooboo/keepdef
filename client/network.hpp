@@ -1,8 +1,6 @@
 #ifndef  _NETWORK_HPP_
 # define  _NETWORK_HPP_
 
-# include "movable_network_data.hpp"
-
 # include <curl.h>
 
 class Network
@@ -63,7 +61,6 @@ public:
     size_t send(const char *data, size_t len)
     {
         size_t sent;
-        CURLcode res = CURLE_OK;
         if (curl_easy_send(_curl, data, len, &sent))
         {
             disconnect();
@@ -73,29 +70,29 @@ public:
         return sent;
     }
 
-    void recv(MovableNetworkData &data)
-    {
-        char buf[8192];
-
-        size_t received = 1;
-        while(received)
-        {
-            CURLcode res = curl_easy_recv(_curl, buf, sizeof(buf), &received);
-            if (CURLE_AGAIN == res)
-            {
-                break;
-            }
-            else if (res)
-            {
-                disconnect();
-                break;
-            }
-            else
-            {
-                data.add(buf, received);
-            }
-        }
-    }
+//    void recv(MovableNetworkData &data)
+//    {
+//        char buf[8192];
+//
+//        size_t received = 1;
+//        while(received)
+//        {
+//            CURLcode res = curl_easy_recv(_curl, buf, sizeof(buf), &received);
+//            if (CURLE_AGAIN == res)
+//            {
+//                break;
+//            }
+//            else if (res)
+//            {
+//                disconnect();
+//                break;
+//            }
+//            else
+//            {
+//                data.add(buf, received);
+//            }
+//        }
+//    }
 
 private:
     volatile bool _is_connected;

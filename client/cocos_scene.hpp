@@ -12,16 +12,16 @@ public:
     static cocos2d::CCScene* scene();
 
     // game loop
-    void tick(cocos2d::ccTime dt);
+    void tick(cocos2d::CCTime dt);
 
     // stop all subsystems and exit game
     void end_scene();
 
-    SCENE_NODE_FUNC(CocosScene);
+    SCENE_CREATE_FUNC(CocosScene);
 
 private:
 
-    Master _master;
+    master_t m_master;
 };
 
 #endif // __COCOS_SCENE_HPP__

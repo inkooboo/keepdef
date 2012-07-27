@@ -22,7 +22,7 @@ struct TextInput
         unsigned char color[] = {100, 100, 100};
         _texture.initWithData(color, cocos2d::kCCTexture2DPixelFormat_RGB888, 1, 1, size);
         
-        bg = cocos2d::CCSprite::spriteWithTexture(&_texture);
+        bg = cocos2d::CCSprite::create(&_texture);
         bg->setPosition(position);
         parent->addChild(bg, 1);
 

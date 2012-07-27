@@ -71,7 +71,7 @@ inline config_t::config_t(const char *file_name, store_policy policy)
     load(f);
 }
 
-inline explicit config_t(const std::string &source)
+inline config_t::config_t(const std::string &source)
     : m_file_name("")
     , m_policy(store_never)
 {

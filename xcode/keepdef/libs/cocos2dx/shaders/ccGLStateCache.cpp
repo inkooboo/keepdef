@@ -44,13 +44,16 @@ static bool        s_bVertexAttribTexCoords = false;
 #if CC_ENABLE_GL_STATE_CACHE
 
 #define kCCMaxActiveTexture 16
+#define UM GLuint(-1)
 
 static GLuint    s_uCurrentShaderProgram = -1;
-static GLuint    s_uCurrentBoundTexture[kCCMaxActiveTexture] =  {-1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, };
+static GLuint    s_uCurrentBoundTexture[kCCMaxActiveTexture] =  {UM,UM,UM,UM, UM,UM,UM,UM, UM,UM,UM,UM, UM,UM,UM,UM, };
 static GLenum    s_eCurrentActiveTexture = (GL_TEXTURE0 - GL_TEXTURE0);
 static GLenum    s_eBlendingSource = -1;
 static GLenum    s_eBlendingDest = -1;
 static int      s_eGLServerState = 0;
+
+#undef UM
 
 #endif // CC_ENABLE_GL_STATE_CACHE
 

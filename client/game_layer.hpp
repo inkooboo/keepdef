@@ -2,20 +2,17 @@
 # define _GAME_LAYER_HPP_
 
 # include "master.hpp"
-# include "player.hpp"
 
 # include <cocos2d.h>
 
-class GameLayer : public cocos2d::CCLayer, public Subsystem
+class GameLayer : public cocos2d::CCLayer, public subsystem_t
 {
-    friend class Master;
-
-    explicit GameLayer(Master *master);
-
     virtual void start();
     virtual void stop();
 
 public:
+    GameLayer();
+
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
 
@@ -31,13 +28,13 @@ public:
     void show_good_tip(const std::string &tip);
     void show_bad_tip(const std::string &tip);
 
-    void update_player(const Player &pl);
-    void update_enemy(const Player &pl);
+//    void update_player(const Player &pl);
+//    void update_enemy(const Player &pl);
 
 private:
 
-    void update_someone(const Player &pl, cocos2d::CCSprite *sprite);
-    void update_tip(cocos2d::CCSprite *tip, float dx, float dy);
+//    void update_someone(const Player &pl, cocos2d::CCSprite *sprite);
+//    void update_tip(cocos2d::CCSprite *tip, float dx, float dy);
 
     cocos2d::CCSize _size;
     cocos2d::CCLabelTTF *_tip;
