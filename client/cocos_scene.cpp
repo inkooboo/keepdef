@@ -15,12 +15,12 @@
 
 USING_NS_CC;
 
-CocosScene *g_cocos_scene = 0;
+cocos_scene_t *g_cocos_scene;
 
-CCScene* CocosScene::scene()
+CCScene* cocos_scene_t::scene()
 {
     // 'scene' is an autorelease object
-    CocosScene *scene = CocosScene::create();
+    cocos_scene_t *scene = cocos_scene_t::create();
     
     g_cocos_scene = scene;
 
@@ -40,7 +40,7 @@ CCScene* CocosScene::scene()
     
     
     scene->m_master.add_subsystem<config_t>(cfg_str);
-    scene->m_master.add_subsystem<EventManager>();
+    scene->m_master.add_subsystem<event_manager_t>();
 //    scene->m_master.add_subsystem<Game>();
     scene->m_master.add_subsystem<GameLayer>();
     scene->m_master.add_subsystem<MenuLayer>();
@@ -48,19 +48,19 @@ CCScene* CocosScene::scene()
     scene->m_master.start();
 
     ////// schedule game loop
-    scene->schedule(schedule_selector(CocosScene::tick), 1.f/60.f);
+    scene->schedule(schedule_selector(cocos_scene_t::tick), 1.f/60.f);
 
     // return the scene
     return scene;
 }
 
-void CocosScene::tick(cocos2d::CCTime dt)
+void cocos_scene_t::tick(cocos2d::CCTime dt)
 {
-    m_master.subsystem<EventManager>().receive_events();
+    m_master.subsystem<event_manager_t>().receive_events();
     m_master.subsystem<GameLayer>().update_scene();
 }
 
-void CocosScene::end_scene()
+void cocos_scene_t::end_scene()
 {
     m_master.stop();
 

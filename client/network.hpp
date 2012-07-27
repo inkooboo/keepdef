@@ -3,10 +3,10 @@
 
 # include <curl.h>
 
-class Network
+class network_t
 {
 public:
-    Network()
+    network_t()
         : _is_connected(false)
         , _curl(0)
     {

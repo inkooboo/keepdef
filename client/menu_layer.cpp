@@ -3,8 +3,6 @@
 #include "game_layer.hpp"
 //#include "game.hpp"
 
-extern CocosScene *g_cocos_scene;
-
 USING_NS_CC;
 
 MenuLayer::MenuLayer()

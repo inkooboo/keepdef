@@ -3,58 +3,52 @@
 
 #include <cstring>
 
-EventManager::EventManager()
-{
-    std::string server(master().subsystem<config_t>().get<std::string>("server"));
-}
-
-void EventManager::start()
+event_manager_t::event_manager_t()
 {
 }
 
-void EventManager::stop()
+void event_manager_t::start()
 {
-    _net.disconnect();
 }
 
-//void EventManager::send_event(const Event &evt)
-//{
-//	if (!_net.is_connected())
-//	{
-//		std::string server(master().subsystem<Config>()["server"]);
-//		int result = _net.connect(server.c_str());
-//		if (result)
-//		{
-//			Event evt = Event::create(EV_DISCONNECTED);
+void event_manager_t::stop()
+{
+    m_net.disconnect();
+}
+
+void event_manager_t::send_event(const event_t &evt)
+{
+	if (!m_net.is_connected())
+	{
+		std::string server(master().subsystem<config_t>().get<std::string>("server"));
+		int result = m_net.connect(server.c_str());
+		if (result)
+		{
+			event_t evt(EV_DISCONNECTED);
 //			evt["code"] = result;
 //			evt["server"] = server;
-//			notify(evt);
-//			return;
-//		}
-//	}
-//
-//    std::string serialized(evt.serialize());
-//    if (!_net.send(serialized.c_str(), serialized.length()) && !_net.is_connected())
-//    {
-//        Event evt = Event::create(EV_DISCONNECTED);
-//        notify(evt);
-//    }
-//}
+			notify(evt);
+			return;
+		}
+	}
 
-void EventManager::subscribe_for_events(EventReceiver *receiver)
+    std::string serialized = event_t::serialize(evt);
+    if (!m_net.send(serialized.c_str(), serialized.length()) && !m_net.is_connected())
+    {
+        event_t evt(EV_DISCONNECTED);
+        notify(evt);
+    }
+}
+
+void event_manager_t::subscribe_for_events(event_handler_t handler)
 {
-    _receivers.push_back(receiver);
+    m_receivers.push_back(handler);
 }
 
 
-void EventManager::unsubscribe_from_events(EventReceiver *receiver)
+void event_manager_t::receive_events()
 {
-    _receivers.remove(receiver);
-}
-
-void EventManager::receive_events()
-{
-    if (!_net.is_connected())
+    if (!m_net.is_connected())
     {
         return;
     }
@@ -82,7 +76,7 @@ void EventManager::receive_events()
 //    }
 //    else
 //    {
-//        if (!_net.is_connected())
+//        if (!m_net.is_connected())
 //        {
 //            Event evt = Event::create(EV_DISCONNECTED);
 //            notify(evt);
@@ -92,10 +86,10 @@ void EventManager::receive_events()
 
 }
 
-//void EventManager::notify(Event &evt)
-//{
-//    for (ReceiversList::iterator it = _receivers.begin(); it != _receivers.end(); ++it)
-//    {
-//        (*it)->on_event(evt);
-//    }
-//}
+void event_manager_t::notify(const event_t &evt)
+{
+    for (auto &handler : m_receivers)
+    {
+        handler(evt);
+    }
+}

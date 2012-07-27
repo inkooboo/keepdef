@@ -2,40 +2,35 @@
 # define  _EVENT_MANAGER_HPP_
 
 # include "master.hpp"
-//# include "event.hpp"
+# include "event.hpp"
 # include "network.hpp"
 
 # include <list>
+# include <functional>
 
-struct EventReceiver
-{
-    //virtual void on_event(Event &evt) = 0;
-
-    virtual ~EventReceiver() {}
-};
-
-class EventManager : public subsystem_t
+class event_manager_t : public subsystem_t
 {
     virtual void start();
     virtual void stop();
-
-    typedef std::list<EventReceiver *> ReceiversList;
-
 public:
-    EventManager();
+    typedef std::function<void(const event_t &)> event_handler_t;
+    
+    event_manager_t();
 
-    //void send_event(const Event &evt);
+    void send_event(const event_t &evt);
 
-    void subscribe_for_events(EventReceiver *receiver);
-    void unsubscribe_from_events(EventReceiver *receiver);
+    void subscribe_for_events(event_handler_t handler);
+
     void receive_events();
 
 private:
-    //void notify(Event &evt);
+    void notify(const event_t &evt);
 
-    ReceiversList _receivers;
+    typedef std::list<event_handler_t> receivers_list_t;
+    
+    receivers_list_t m_receivers;
 
-    Network _net;
+    network_t m_net;
 };
 
 

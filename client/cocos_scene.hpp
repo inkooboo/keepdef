@@ -5,7 +5,7 @@
 
 # include <cocos2d.h>
 
-class CocosScene : public cocos2d::CCScene
+class cocos_scene_t : public cocos2d::CCScene
 {
 public:
     // there's no 'id' in cpp, so we recommand to return the exactly class pointer
@@ -17,11 +17,12 @@ public:
     // stop all subsystems and exit game
     void end_scene();
 
-    SCENE_CREATE_FUNC(CocosScene);
+    SCENE_CREATE_FUNC(cocos_scene_t);
 
 private:
-
     master_t m_master;
 };
+
+extern cocos_scene_t *g_cocos_scene;
 
 #endif // __COCOS_SCENE_HPP__

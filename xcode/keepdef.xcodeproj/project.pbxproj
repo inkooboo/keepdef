@@ -769,6 +769,7 @@
 		846FD53515C293A4003BA72D /* typecheck-gcc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "typecheck-gcc.h"; sourceTree = "<group>"; };
 		846FD53615C293A4003BA72D /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		846FD53715C29C1F003BA72D /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../cocos2dx/cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
+		846FD55515C2D6F0003BA72D /* event.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = event.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1787,6 +1788,7 @@
 		846FD52415C28FBA003BA72D /* common */ = {
 			isa = PBXGroup;
 			children = (
+				846FD55515C2D6F0003BA72D /* event.hpp */,
 				846FD52515C28FBA003BA72D /* config.hpp */,
 				846FD52615C28FBA003BA72D /* master.hpp */,
 				846FD52715C28FBA003BA72D /* md5.cpp */,
