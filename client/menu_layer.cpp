@@ -85,7 +85,7 @@ void MenuLayer::on_exit_cb(CCObject* pSender)
 void MenuLayer::on_start_cb(CCObject* pSender)
 {
     hide();
-    master()->subsystem<GameLayer>().show();
+    master().subsystem<GameLayer>().show();
     //master().subsystem<Game>().start_game(_input_name.get_string(), _input_password.get_string());
 }
 

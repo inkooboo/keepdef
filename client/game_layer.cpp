@@ -112,7 +112,7 @@ bool GameLayer::init()
 void GameLayer::menuOpenCallback(CCObject* pSender)
 {
     hide();
-    master()->subsystem<MenuLayer>().show();
+    master().subsystem<MenuLayer>().show();
 }
 
 void GameLayer::show()

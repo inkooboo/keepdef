@@ -8,6 +8,8 @@
 #include "game_layer.hpp"
 #include "menu_layer.hpp"
 
+#include "CCFileUtils.h"
+
 #include <cstdlib>
 #include <ctime>
 
@@ -26,7 +28,18 @@ CCScene* CocosScene::scene()
 
     //// initialize subsystems
 
-//    scene->m_master.add_subsystem<Config>();
+    unsigned char *data = 0;
+    unsigned long size = 0;
+    data = CCFileUtils::sharedFileUtils()->getFileData("config.txt", "r", &size);
+    
+    std::string cfg_str;
+    if (data && size)
+    {
+        cfg_str.assign((char *)data, size);
+    }
+    
+    
+    scene->m_master.add_subsystem<config_t>(cfg_str);
     scene->m_master.add_subsystem<EventManager>();
 //    scene->m_master.add_subsystem<Game>();
     scene->m_master.add_subsystem<GameLayer>();

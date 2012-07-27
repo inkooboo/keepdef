@@ -5,6 +5,7 @@
 
 EventManager::EventManager()
 {
+    std::string server(master().subsystem<config_t>().get<std::string>("server"));
 }
 
 void EventManager::start()
