@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840436BC15D28CDD0089D58E /* game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840436BB15D28CDC0089D58E /* game_controller.cpp */; };
 		846FD1F715C28415003BA72D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846FD1F615C28415003BA72D /* QuartzCore.framework */; };
 		846FD1F915C28415003BA72D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846FD1F815C28415003BA72D /* OpenGLES.framework */; };
 		846FD1FB15C28415003BA72D /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846FD1FA15C28415003BA72D /* OpenAL.framework */; };
@@ -249,6 +250,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		840436B915D28C420089D58E /* game_controller.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = game_controller.hpp; sourceTree = "<group>"; };
+		840436BB15D28CDC0089D58E /* game_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_controller.cpp; sourceTree = "<group>"; };
+		840436BF15D29BA20089D58E /* event_description.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = event_description.hpp; sourceTree = "<group>"; };
 		846FD1F215C28415003BA72D /* keepdef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = keepdef.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		846FD1F615C28415003BA72D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		846FD1F815C28415003BA72D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1780,6 +1784,8 @@
 				846FD51D15C28FB2003BA72D /* menu_layer.hpp */,
 				846FD51E15C28FB2003BA72D /* network.hpp */,
 				846FD51F15C28FB2003BA72D /* text_input_helper.hpp */,
+				840436B915D28C420089D58E /* game_controller.hpp */,
+				840436BB15D28CDC0089D58E /* game_controller.cpp */,
 			);
 			name = client;
 			path = ../../client;
@@ -1795,6 +1801,7 @@
 				846FD52815C28FBA003BA72D /* md5.h */,
 				846FD52915C28FBA003BA72D /* noncopyable.hpp */,
 				846FD52A15C28FBA003BA72D /* subsystem.hpp */,
+				840436BF15D29BA20089D58E /* event_description.hpp */,
 			);
 			name = common;
 			path = ../../common;
@@ -2108,6 +2115,7 @@
 				846FD52215C28FB2003BA72D /* game_layer.cpp in Sources */,
 				846FD52315C28FB2003BA72D /* menu_layer.cpp in Sources */,
 				846FD52B15C28FBA003BA72D /* md5.cpp in Sources */,
+				840436BC15D28CDD0089D58E /* game_controller.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

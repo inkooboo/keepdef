@@ -1,29 +1,29 @@
 #include "menu_layer.hpp"
 #include "cocos_scene.hpp"
 #include "game_layer.hpp"
-//#include "game.hpp"
+#include "game_controller.hpp"
 
 USING_NS_CC;
 
-MenuLayer::MenuLayer()
+menu_layer_t::menu_layer_t()
 {
     init();
 }
 
-void MenuLayer::start()
+void menu_layer_t::start()
 {
     // add layer as a child to scene
-    g_cocos_scene->addChild(this, 1);
+    master_t::subsystem<cocos_scene_t>().addChild(this, 1);
 }
 
-void MenuLayer::stop()
+void menu_layer_t::stop()
 {
-    g_cocos_scene->removeChild(this, false);
+    master_t::subsystem<cocos_scene_t>().removeChild(this, false);
 }
 
 
 // on "init" you need to initialize your instance
-bool MenuLayer::init()
+bool menu_layer_t::init()
 {
     if (!CCLayer::init())
     {
@@ -43,7 +43,7 @@ bool MenuLayer::init()
                                         "FireIcon.png",
                                         "FireIcon_p.png",
                                         this,
-                                        menu_selector(MenuLayer::on_start_cb) );
+                                        menu_selector(menu_layer_t::on_start_cb) );
     start->setPosition( ccp(size.width / 3, size.height / 3 * 2) );
     cocos2d::CCLabelTTF *start_l = CCLabelTTF::create("Start", "Arial", 28);
     start_l->setPosition( ccp(size.width / 3, size.height / 3 * 2 - 52) );
@@ -53,7 +53,7 @@ bool MenuLayer::init()
                                         "CloseNormal.png",
                                         "CloseSelected.png",
                                         this,
-                                        menu_selector(MenuLayer::on_exit_cb) );
+                                        menu_selector(menu_layer_t::on_exit_cb) );
     exit->setPosition( ccp(size.width / 3 * 2, size.height / 3 * 2) );
     cocos2d::CCLabelTTF *exit_l = CCLabelTTF::create("Exit", "Arial", 28);
     exit_l->setPosition( ccp(size.width / 3 * 2, size.height / 3 * 2 - 52) );
@@ -75,24 +75,24 @@ bool MenuLayer::init()
     return true;
 }
 
-void MenuLayer::on_exit_cb(CCObject* pSender)
+void menu_layer_t::on_exit_cb(CCObject* pSender)
 {
-    g_cocos_scene->end_scene();
+    master_t::subsystem<cocos_scene_t>().end_scene();
 }
 
-void MenuLayer::on_start_cb(CCObject* pSender)
+void menu_layer_t::on_start_cb(CCObject* pSender)
 {
     hide();
-    master().subsystem<GameLayer>().show();
-    //master().subsystem<Game>().start_game(_input_name.get_string(), _input_password.get_string());
+    master_t::subsystem<game_layer_t>().show();
+    master_t::subsystem<game_controller_t>().start_game(_input_name.get_string(), _input_password.get_string());
 }
 
-void MenuLayer::registerWithTouchDispatcher()
+void menu_layer_t::registerWithTouchDispatcher()
 {
     CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, false);
 }
 
-bool MenuLayer::ccTouchBegan(CCTouch *touch, CCEvent *pEvent)
+bool menu_layer_t::ccTouchBegan(CCTouch *touch, CCEvent *pEvent)
 {
     _touch_begin = touch->locationInView();	
     _touch_begin = CCDirector::sharedDirector()->convertToGL(_touch_begin);
@@ -100,7 +100,7 @@ bool MenuLayer::ccTouchBegan(CCTouch *touch, CCEvent *pEvent)
     return true;
 }
 
-void MenuLayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
+void menu_layer_t::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
 {
     CCPoint touch_end = touch->locationInView();
     touch_end = CCDirector::sharedDirector()->convertToGL(touch_end);
@@ -116,13 +116,13 @@ void MenuLayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
     _input_password.on_click(touch_end);
 }
 
-void MenuLayer::show()
+void menu_layer_t::show()
 {
     this->setTouchEnabled(true);
     this->setVisible(true);
 }
 
-void MenuLayer::hide()
+void menu_layer_t::hide()
 {
     this->setTouchEnabled(false);
     this->setVisible(false);

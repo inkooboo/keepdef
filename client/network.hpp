@@ -3,6 +3,8 @@
 
 # include <curl.h>
 
+# include <vector>
+
 class network_t
 {
 public:
@@ -70,29 +72,39 @@ public:
         return sent;
     }
 
-//    void recv(MovableNetworkData &data)
-//    {
-//        char buf[8192];
-//
-//        size_t received = 1;
-//        while(received)
-//        {
-//            CURLcode res = curl_easy_recv(_curl, buf, sizeof(buf), &received);
-//            if (CURLE_AGAIN == res)
-//            {
-//                break;
-//            }
-//            else if (res)
-//            {
-//                disconnect();
-//                break;
-//            }
-//            else
-//            {
-//                data.add(buf, received);
-//            }
-//        }
-//    }
+    void recv(std::vector<char> &data)
+    {
+        static const int GROW_SIZE = 8192;
+        
+        data.resize(GROW_SIZE);
+        
+        char *buf_begin_ptr = &data[0];
+        size_t len = 0;
+        
+        size_t received = 1;
+        while (received)
+        {
+            CURLcode res = curl_easy_recv(_curl, buf_begin_ptr, data.size() - len, &received);
+            
+            if (CURLE_AGAIN == res)
+            {
+                break;
+            }
+            else if (res)
+            {
+                disconnect();
+                break;
+            }
+            else if (received)
+            {
+                len += received;
+                buf_begin_ptr += received;
+                data.resize(len + GROW_SIZE);
+            }
+        }
+        
+        data.resize(len);
+    }
 
 private:
     volatile bool _is_connected;

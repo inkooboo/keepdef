@@ -23,6 +23,4 @@ private:
     master_t m_master;
 };
 
-extern cocos_scene_t *g_cocos_scene;
-
 #endif // __COCOS_SCENE_HPP__
