@@ -47,7 +47,7 @@ void event_manager_t::receive_events()
     }
 
     std::vector<char> net_data;
-	m_net.recv(net_data);
+    m_net.recv(net_data);
 
     if (!net_data.empty())
     {
