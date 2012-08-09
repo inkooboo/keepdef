@@ -30,7 +30,7 @@ enum event_type_t
 class event_description_t
 {
 public:
-    int id() const
+    event_type_t id() const
     {
         return m_id;
     }

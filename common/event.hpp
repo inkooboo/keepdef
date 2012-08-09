@@ -20,12 +20,11 @@ class event_t
 {
 public:
     inline explicit event_t(event_type_t type);
-    
     inline event_t(const char *data, size_t length);
     
-    inline const event_description_t & description() const;
-    
     inline std::string serialize() const;
+
+    inline const event_description_t & description() const;
     
     template <typename T>
     inline void set(const char *name, const T &value);
