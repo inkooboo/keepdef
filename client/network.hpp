@@ -98,8 +98,8 @@ public:
             else if (received)
             {
                 len += received;
-                buf_begin_ptr += received;
                 data.resize(len + GROW_SIZE);
+                buf_begin_ptr = &data[len];
             }
         }
         

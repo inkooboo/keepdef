@@ -19,19 +19,19 @@ void event_manager_t::stop()
 
 void event_manager_t::send_event(const event_t &evt)
 {
-	if (!m_net.is_connected())
-	{
-		std::string server(master_t::subsystem<config_t>().get<std::string>("server"));
-		int result = m_net.connect(server.c_str());
-		if (result)
-		{
-			event_t evt(EV_DISCONNECTED);
-			evt.set("code", result);
-			evt.set("server", server);
-			notify(evt);
-			return;
-		}
-	}
+    if (!m_net.is_connected())
+    {
+        std::string server(master_t::subsystem<config_t>().get<std::string>("server"));
+        int result = m_net.connect(server.c_str());
+        if (result)
+        {
+            event_t evt(EV_DISCONNECTED);
+            evt.set("code", result);
+            evt.set("server", server);
+            notify(evt);
+            return;
+        }
+    }
 
     std::string serialized = evt.serialize();
     if (!m_net.send(serialized.c_str(), serialized.length()) && !m_net.is_connected())
