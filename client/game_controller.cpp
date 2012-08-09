@@ -37,7 +37,7 @@ void game_controller_t::start_game(const std::string &login, const std::string &
         evt_start.set("login", login);
         evt_start.set("password", md5(pass));
         master_t::subsystem<event_manager_t>().send_event(evt_start);
-        m_name = login;
+        m_my_name = login;
     }
 }
 
@@ -48,10 +48,10 @@ void game_controller_t::event_handler(const event_t &event)
             
         case EV_SERVER_START:
         {
-            auto enemy_name = event.get<std::string>("enemy");
+            m_enemy_name = event.get<std::string>("enemy");
             master_t::subsystem<game_layer_t>().show_tip("START!");
-            master_t::subsystem<game_layer_t>().update_player(m_name, 100.f);
-            master_t::subsystem<game_layer_t>().update_enemy(enemy_name, 100.f);
+            master_t::subsystem<game_layer_t>().update_player(m_my_name, 100.f);
+            master_t::subsystem<game_layer_t>().update_enemy(m_enemy_name, 100.f);
             m_started = true;
             break;
         }
@@ -64,14 +64,14 @@ void game_controller_t::event_handler(const event_t &event)
             std::stringstream ss;
             ss << "HIT " << power << "!"; 
             
-            if (event.get<std::string>("target") == m_name)
+            if (event.get<std::string>("target") == m_my_name)
             {
-                master_t::subsystem<game_layer_t>().update_player(m_name, event.get<double>("target_hp"));
+                master_t::subsystem<game_layer_t>().update_player(m_my_name, event.get<double>("target_hp"));
                 master_t::subsystem<game_layer_t>().show_bad_tip(ss.str());
             }
             else
             {
-                master_t::subsystem<game_layer_t>().update_enemy(event.get<std::string>("target"), event.get<double>("target_hp"));
+                master_t::subsystem<game_layer_t>().update_enemy(m_enemy_name, event.get<double>("target_hp"));
                 master_t::subsystem<game_layer_t>().show_good_tip(ss.str());
             }
             
@@ -117,9 +117,9 @@ void game_controller_t::left_fire(cocos2d::CCObject* pSender)
         return;
     }
     event_t evt(EV_CLIENT_HIT);
-    evt.set("from", ""/*_player.name*/);
-    evt.set("target", ""/*_enemy.name*/);
-    evt.set("side", "left");
+    evt.set("source", m_my_name);
+    evt.set("target", m_enemy_name);
+    evt.set("type", "left");
     master_t::subsystem<event_manager_t>().send_event(evt);
 }
 
@@ -130,8 +130,8 @@ void game_controller_t::right_fire(cocos2d::CCObject* pSender)
         return;
     }
     event_t evt(EV_CLIENT_HIT);
-    evt.set("from", ""/*_player.name*/);
-    evt.set("target", ""/*_enemy.name*/);
-    evt.set("side", "right");
+    evt.set("source", m_my_name);
+    evt.set("target", m_enemy_name);
+    evt.set("type", "right");
     master_t::subsystem<event_manager_t>().send_event(evt);
 }

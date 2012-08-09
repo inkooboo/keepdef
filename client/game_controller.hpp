@@ -32,7 +32,8 @@ public:
     
 private:
     bool m_started;
-    std::string m_name;
+    std::string m_my_name;
+    std::string m_enemy_name;
 };
 
 #endif
