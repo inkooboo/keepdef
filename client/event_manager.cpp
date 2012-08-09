@@ -4,14 +4,6 @@
 #include <vector>
 #include <cstring>
 
-event_manager_t::event_manager_t()
-{
-}
-
-void event_manager_t::start()
-{
-}
-
 void event_manager_t::stop()
 {
     m_net.disconnect();

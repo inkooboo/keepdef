@@ -10,13 +10,10 @@
 
 class event_manager_t : public subsystem_t
 {
-    virtual void start();
     virtual void stop();
 public:
     typedef std::function<void(const event_t &)> event_handler_t;
     
-    event_manager_t();
-
     void send_event(const event_t &evt);
 
     void subscribe_for_events(event_handler_t handler);
