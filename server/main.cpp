@@ -1,5 +1,5 @@
-#include "../Classes/master.hpp"
-#include "server_config.hpp"
+#include "master.hpp"
+#include "config.hpp"
 
 #include "logger.hpp"
 #include "server.hpp"
@@ -12,23 +12,23 @@
 
 int main(int argc, char* argv[])
 {
-    logger::ThreadName this_thread("Main");
+    logger::thread_name_t this_thread("Main");
 
     srand((unsigned int)time(0));
 
     try
     {
-        Master master;
+        master_t master;
 
-        master.add_subsystem<Config>();
-        master.add_subsystem<Logger>();
-        master.add_subsystem<ThreadPool>();
-        master.add_subsystem<Server>();
-        master.add_subsystem<GameManager>();
+        master.add_subsystem<config_t>();
+        master.add_subsystem<logger_t>();
+        master.add_subsystem<thread_pool_t>();
+        master.add_subsystem<server_t>();
+        master.add_subsystem<game_manager_t>();
 
         master.start();
 
-        master.subsystem<ThreadPool>().join_thread_pool();
+        master.subsystem<thread_pool_t>().join_thread_pool();
 
         master.stop();
     }

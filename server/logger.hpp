@@ -1,38 +1,31 @@
 #ifndef _LOGGER_HPP_
 # define _LOGGER_HPP_
 
-# include "../Classes/master.hpp"
+# include "master.hpp"
 
-# include <boost/thread/tss.hpp>
-# include <boost/noncopyable.hpp>
+# include "noncopyable.hpp"
 
 # include <string>
 # include <sstream>
 # include <memory>
 
 
-class Logger : public Subsystem
+class logger_t : public subsystem_t
 {
-    friend class Master;
-
-    explicit Logger(Master *master);
-
 public:
-    ~Logger();
+    logger_t();
+    ~logger_t();
 };
 
 enum log_level_t
 {
-    DEBUG = 1, TRACE = 2, CRITICAL = 3
+    LOG_DEBUG = 1, LOG_TRACE = 2, LOG_CRITICAL = 3
 };
 
 namespace logger
 {
 
-    class ThreadName;
-
-    extern boost::thread_specific_ptr<ThreadName> tss_value;
-    extern FILE *g_log;
+    class thread_name_t;
 
     namespace detail
     {
@@ -107,11 +100,11 @@ namespace logger
      * @remarks
      *      Uses thread local storage.
      */
-    class ThreadName : private boost::noncopyable
+    class thread_name_t : private noncopyable_t
     {
     public:
-        ThreadName(const std::string &name);
-        ~ThreadName();
+        thread_name_t(const std::string &name);
+        thread_name_t();
         std::string name_;
     };
 

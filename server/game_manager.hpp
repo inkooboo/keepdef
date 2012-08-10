@@ -1,32 +1,31 @@
 #ifndef _GAME_MANAGER_HPP_
 # define _GAME_MANAGER_HPP_
 
-# include "../Classes/master.hpp"
-# include "server_game.hpp"
+# include "master.hpp"
+# include "game.hpp"
 # include "session.hpp"
 
-# include <boost/thread/mutex.hpp>
+# include <thread>
 # include <vector>
 
-class GameManager : public Subsystem
+class game_manager_t : public subsystem_t
 {
-    friend class Master;
-
-    explicit GameManager(Master *_master);
-
-    typedef std::vector<ServerGame> GamesStorageType;
+    typedef std::vector<game_t> games_storage_t;
 
 public:
-    ServerGame * join_game(Session *s, Event &evt);
-    void leave_game(size_t id, Session *s);
+    game_manager_t();
+    
+    game_t * join_game(session_t *s, event_t &evt);
+    
+    void leave_game(size_t id, session_t *s);
 
 private:
     size_t find_free_game();
 
-    boost::mutex _creating_game_guard;
-    size_t _creating_game;
+    std::mutex m_creating_game_guard;
+    size_t m_creating_game;
 
-    GamesStorageType _games;
+    games_storage_t m_games;
 };
 
 

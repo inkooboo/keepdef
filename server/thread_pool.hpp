@@ -1,30 +1,26 @@
 #ifndef _THREAD_POOL_HPP_
 # define _THREAD_POOL_HPP_
 
-# include "../Classes/master.hpp"
+# include "master.hpp"
 
+# include "config.hpp"
 # include "logger.hpp"
 
-# include <boost/thread.hpp>
 # include <boost/asio.hpp>
+
+# include <thread>
+# include <memory>
 # include <vector>
 # include <iterator>
 # include <sstream>
 
-class ThreadPool : public Subsystem
+class thread_pool_t : public subsystem_t
 {
-    friend class Master;
-
-    explicit ThreadPool(Master *master)
-        : Subsystem(master)
-    {
-    }
-
     virtual void start()
     {
-        _work = new boost::asio::io_service::work(_svc);
+        m_work.reset(new boost::asio::io_service::work(m_svc));
 
-        size_t threads = master().subsystem<Config>()["threads"];
+        size_t threads = master_t::subsystem<config_t>()["threads"];
         if (threads < 1)
         {
             threads = 2;
@@ -32,24 +28,26 @@ class ThreadPool : public Subsystem
 
         logger::log(TRACE) << "[Thread pool] Using " << threads << " threads";
 
-        _threads.resize(threads -1);
+        m_threads.resize(threads -1);
 
-        for (std::vector<boost::thread>::iterator i = _threads.begin(); i != _threads.end(); ++i)
+        size_t thread_index = 0;
+        for (auto &thr : m_threads)
         {
-            *i = boost::thread(&ThreadPool::worker_thread_func, this, static_cast<size_t>(std::distance(_threads.begin(), i)));
+            thr = std::thread(&thread_pool_t::worker_thread_func, this, thread_index);
+            ++thread_index;
         }
 
     }
 
     virtual void stop()
     {
-        delete _work;
+        m_work.reset();
 
-        for (std::vector<boost::thread>::iterator i = _threads.begin(); i != _threads.end(); ++i)
+        for (auto &thr : m_threads)
         {
-            if (i->joinable())
+            if (thr.joinable())
             {
-                i->join();
+                thr.join();
             }
         }
 
@@ -60,12 +58,12 @@ public:
     void join_thread_pool()
     {
         logger::log(TRACE, "[Thread pool] Thread joined to thread pool");
-        _svc.run();
+        m_svc.run();
     }
 
-    boost::asio::io_service & get_io_service()
+    boost::asio::io_service & io_service()
     {
-        return _svc;
+        return m_svc;
     }
 
 private:
@@ -74,14 +72,14 @@ private:
     {
         std::ostringstream name;
         name << n;
-        logger::ThreadName this_thread(name.str());
+        logger::thread_name_t this_thread(name.str());
         join_thread_pool();
     }
 
-    boost::asio::io_service _svc;
-    boost::asio::io_service::work *_work;
+    boost::asio::io_service m_svc;
+    std::unique_ptr<boost::asio::io_service::work> m_work;
 
-    std::vector<boost::thread> _threads;
+    std::vector<boost::thread> m_threads;
 };
 
 

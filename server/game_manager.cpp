@@ -1,50 +1,49 @@
 #include "game_manager.hpp"
 
-#include "server_config.hpp"
+#include "config.hpp"
 
-#include "server_player.hpp"
+#include "player.hpp"
 #include "logger.hpp"
 
-GameManager::GameManager(Master *_master)
-    : Subsystem(_master)
-    , _creating_game(0)
+game_manager_t::game_manager_t()
+    : m_creating_game(0)
 {
-    size_t max_games = master().subsystem<Config>()["max_games"];
-    logger::log(TRACE) << "[Game manager] Maximum games set to " << max_games;
-    _games.resize(max_games);
+    size_t max_games = master_t::subsystem<config_t>().get<size_t>("max_games");
+    logger::log(LOG_TRACE) << "[Game manager] Maximum games set to " << max_games;
+    m_games.resize(max_games);
 }
 
-ServerGame * GameManager::join_game(Session *s, Event &evt)
+game_t * game_manager_t::join_game(Session *s, Event &evt)
 {
-    boost::mutex::scoped_lock g(_creating_game_guard);
+    std::mutex::scoped_lock g(m_creating_game_guard);
 
-    if (_creating_game == ~0u)
+    if (m_creating_game == ~0u)
     {
-        _creating_game = find_free_game();
-        if (_creating_game == ~0u)
+        m_creating_game = find_free_game();
+        if (m_creating_game == ~0u)
         {
             return 0;
         }
     }
 
-    ServerGame &game = _games[_creating_game];
+    game_t &game = m_games[m_creating_game];
 
     switch (game.state())
     {
-    case ServerGame::EMPTY:
+    case game_t::EMPTY:
         {
-            ServerPlayer pl;
-            pl.init(s, evt["login"]);
-            game.init_first_player(_creating_game, pl);
+            player_t pl;
+            pl.init(s, evt.get<std::string>("login"));
+            game.init_first_player(m_creating_game, pl);
         }
         break;
-    case ServerGame::ONE_PLAYER:
+    case game_t::ONE_PLAYER:
         {
-            ServerPlayer pl;
-            pl.init(s, evt["login"]);
+            player_t pl;
+            pl.init(s, evt.get<std::string>("login"));
             game.init_second_player(pl);
 
-            _creating_game = find_free_game();
+            m_creating_game = find_free_game();
         }
         break;
     default:
@@ -54,50 +53,50 @@ ServerGame * GameManager::join_game(Session *s, Event &evt)
     return &game;
 }
 
-void GameManager::leave_game(size_t id, Session *s)
+void game_manager_t::leave_game(size_t id, Session *s)
 {
-    ServerGame &game = _games[id];
+    game_t &game = m_games[id];
 
-    if (game.state() == ServerGame::IN_ACTION)
+    if (game.state() == game_t::IN_ACTION)
     {
-        ServerPlayer disconnected;
-        ServerPlayer other;
+        player_t disconnected;
+        player_t other;
         if (s == game.a.session)
         {
-            disconnected = game.a;
-            other = game.b;
+            disconnected = game.m_a;
+            other = game.m_b;
         }
-        else if (s == game.b.session)
+        else if (s == game.m_b.m_session)
         {
-            disconnected = game.b;
-            other = game.a;
+            disconnected = game.m_b;
+            other = game.m_a;
         }
         else
         {
             assert(!"Logic error when leaving game");
         }
 
-        Event evt = Event::create(EV_END_GAME);
-        evt["winner"] = other.name;
+        event_t evt(EV_END_GAME);
+        evt.set("winner", other.m_name);
 
         other.session->send_event(evt);
 
-        disconnected.session->game = 0;
-        other.session->game = 0;
+        disconnected.m_session->m_game = 0;
+        other.m_session->m_game = 0;
     }
     else
     {
-        s->game = 0;
+        s->m_game = 0;
     }
 
     game.reset();
 }
 
-size_t GameManager::find_free_game()
+size_t game_manager_t::find_free_game()
 {
-    for (size_t i = 0; i < _games.size(); ++i)
+    for (size_t i = 0; i < m_games.size(); ++i)
     {
-        if (_games[i].state() == ServerGame::EMPTY)
+        if (m_games[i].state() == game_t::EMPTY)
         {
             return i;
         }

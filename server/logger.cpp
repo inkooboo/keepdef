@@ -1,16 +1,17 @@
 #include "logger.hpp"
 
-#include "server_config.hpp"
+#include "config.hpp"
+
+#include <boost/thread/tss.hpp>
 
 #include <sstream>
-
-#include <time.h>
-#include <stdio.h>
+#include <ctime>
+#include <cstdio>
 
 namespace logger
 {
 
-    boost::thread_specific_ptr<ThreadName> tss_value;
+    boost::thread_specific_ptr<thread_name_t> tss_value;
     FILE *g_log = stdout;
 
     namespace detail
@@ -62,7 +63,7 @@ namespace logger
         detail::log_str(level, text);
     }
 
-    ThreadName::ThreadName(const std::string &name) 
+    thread_name_t::thread_name_t(const std::string &name) 
         : name_(name)
     {
         if (tss_value.get() != NULL)
@@ -73,17 +74,16 @@ namespace logger
         tss_value.reset(this);
     }
 
-    ThreadName::~ThreadName()
+    thread_name_t::thread_name_t()
     {
         tss_value.release();
     }
 
 } // namespace logger
 
-Logger::Logger(Master *_master)
-    : Subsystem(_master)
+logger_t::logger_t()
 {
-    std::string file_name = master().subsystem<Config>()["log_file"];
+    std::string file_name = master_t::subsystem<config_t>().get<std::string>("log_file");
     
     if (logger::g_log != stdout)
     {
@@ -101,7 +101,7 @@ Logger::Logger(Master *_master)
     logger::log(TRACE, "[Logger] Logger system initiated.");
 }
 
-Logger::~Logger()
+logger_t::logger_t()
 {
     logger::log(TRACE, "[Logger] Logger system deinitiated.");
     if (logger::g_log != stdout)
