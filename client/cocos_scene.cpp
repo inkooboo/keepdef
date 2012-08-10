@@ -6,6 +6,7 @@
 #include "network.hpp"
 #include "game_layer.hpp"
 #include "menu_layer.hpp"
+#include "game_controller.hpp"
 
 #include "CCFileUtils.h"
 
@@ -22,10 +23,10 @@ CCScene* cocos_scene_t::scene()
     srand((unsigned int)time(NULL));
 
     //// initialize subsystems
-
+    const char *full_path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("config.txt");
     unsigned char *data = 0;
     unsigned long size = 0;
-    data = CCFileUtils::sharedFileUtils()->getFileData("config.txt", "r", &size);
+    data = CCFileUtils::sharedFileUtils()->getFileData(full_path, "r", &size);
     
     std::string cfg_str;
     if (data && size)
@@ -37,6 +38,7 @@ CCScene* cocos_scene_t::scene()
     scene->m_master.add_external_subsystem<cocos_scene_t>(scene);
     scene->m_master.add_unmanaged_subsystem<config_t>(cfg_str);
     scene->m_master.add_managed_subsystem<event_manager_t>();
+    scene->m_master.add_managed_subsystem<game_controller_t>();
     scene->m_master.add_managed_subsystem<game_layer_t>();
     scene->m_master.add_managed_subsystem<menu_layer_t>();
     
